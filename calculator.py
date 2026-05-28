@@ -12,7 +12,7 @@ def calculate_pay(hours, rate):
         overtime_hours = hours - 40
         return (40 * rate) + (overtime_hours * rate * 1.5)
     
-def plot(x, y, title, xlabel, ylabel):
+def plot(x:list[int], y:list[int], title:str, xlabel:str, ylabel:str):
     plt.plot(x, y)
     plt.title(title)
     plt.xlabel(xlabel)
@@ -22,7 +22,6 @@ def plot(x, y, title, xlabel, ylabel):
 def read_csv(file_path):
     data = pd.read_csv(file_path)
     return data
-
     
 pay = calculate_pay(hours_worked, hourly_rate)
 print(f"The total pay is: ${pay:.2f}")
@@ -36,5 +35,19 @@ if reave.lower() == 'yes':
     plot(hours, pays, "Pay vs Hours Worked", "Hours Worked", "Pay")
 
 
+show_month = input("Do you want to plot the pay for each month? (yes/no)")
 
+if show_month.lower() == 'yes':
+    months = int(input("Over how many months: "))
 
+    the_months = []
+    monthly_pays = []
+
+    prev = 0
+
+    for month in range(1, months + 1):
+        prev += calculate_pay(hours_worked, hourly_rate) * 4  # assuming 4 weeks/month
+        the_months.append(month)
+        monthly_pays.append(prev)
+
+    plot(the_months, monthly_pays, "Months vs Monthly Income", "Months", "Income")
