@@ -12,18 +12,6 @@ def calculate_pay(hours, rate):
         overtime_hours = hours - 40
         return (40 * rate) + (overtime_hours * rate * 1.5)
     
-pay = calculate_pay(hours_worked, hourly_rate)
-print(f"The total pay is: ${pay:.2f}")
-
-reave = input("Do you want to plot the pay vs hours worked? (yes/no): ")
-
-if reave.lower() == 'yes':
-    hours = np.arange(0, 60, 1)
-    pays = [calculate_pay(h, hourly_rate) for h in hours]
-    plot(hours, pays, "Pay vs Hours Worked", "Hours Worked", "Pay")
-
-
-
 def plot(x, y, title, xlabel, ylabel):
     plt.plot(x, y)
     plt.title(title)
@@ -34,4 +22,19 @@ def plot(x, y, title, xlabel, ylabel):
 def read_csv(file_path):
     data = pd.read_csv(file_path)
     return data
+
+    
+pay = calculate_pay(hours_worked, hourly_rate)
+print(f"The total pay is: ${pay:.2f}")
+
+reave = input("Do you want to plot the pay vs hours worked? (yes/no): ")
+
+if reave.lower() == 'yes':
+    hours = np.arange(0, 60, 1)
+    pays = [calculate_pay(h, hourly_rate) for h in hours]
+
+    plot(hours, pays, "Pay vs Hours Worked", "Hours Worked", "Pay")
+
+
+
 
